@@ -9,14 +9,18 @@
 @interface DeviceUID ()
 
 @property(nonatomic, strong, readonly) NSString *uid;
+@property(nonatomic, strong, readonly) NSString *uuidAccount;
 
 @end
 
 NSString * const UIDKey = @"deviceUID";
+NSString * const service = @"service";
+NSString * const uuidAccountKey = @"uuidAccount";
 
 @implementation DeviceUID
 
 @synthesize uid = _uid;
+@synthesize uuidAccount = _uuidAccount;
 
 #pragma mark - Public methods
 
@@ -28,12 +32,17 @@ NSString * const UIDKey = @"deviceUID";
     return [[[DeviceUID alloc] init] syncUid];
 }
 
++ (NSString *)uuidAccount {
+    return [[[DeviceUID alloc] init] uuidAccount];
+}
+
 #pragma mark - Instance methods
 
 - (id)init:(NSString *)key {
     self = [super init];
     if (self) {
         _uid = nil;
+        _uuidAccount = nil;
     }
     return self;
 }
@@ -80,6 +89,11 @@ NSString * const UIDKey = @"deviceUID";
   if (![DeviceUID valueForKeychainKey:UIDKey service:UIDKey]) {
     [DeviceUID setValue:_uid forKeychainKey:UIDKey inService:UIDKey];
   }
+}
+
+- (NSString *)uuidAccount {
+    _uuidAccount = [[self class] valueForKeychainKey:uuidAccountKey service:service];
+    return _uuidAccount;
 }
 
 #pragma mark - Keychain methods

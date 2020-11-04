@@ -28,6 +28,22 @@ export async function syncUniqueId() {
   return uniqueId;
 }
 
+let uuidAccount: string;
+export function getUuidAccount() {
+  if (!uuidAccount) {
+    if (Platform.OS === 'ios') {
+      uuidAccount = RNDeviceInfo.uuidAccount;
+    }
+    else if (Platform.OS === 'android' || Platform.OS === 'windows') {
+      uuidAccount = 'android';
+    }
+    else {
+      uuidAccount = 'unknown';
+    }
+  }
+  return uuidAccount;
+}
+
 export const [getInstanceId, getInstanceIdSync] = getSupportedPlatformInfoFunctions({
   memoKey: 'instanceId',
   supportedPlatforms: ['android'],
@@ -889,6 +905,7 @@ const deviceInfoModule: DeviceInfoModule = {
   getType,
   getTypeSync,
   getUniqueId,
+  getUuidAccount,
   getUsedMemory,
   getUsedMemorySync,
   getUserAgent,

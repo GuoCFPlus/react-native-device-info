@@ -113,6 +113,7 @@ declare module.exports: {
   getType: () => Promise<string>,
   getTypeSync: () => string,
   getUniqueId: () => string,
+  getUuidAccount: () => string,
   getUsedMemory: () => Promise<number>,
   getUsedMemorySync: () => number,
   getUserAgent: () => Promise<string>,

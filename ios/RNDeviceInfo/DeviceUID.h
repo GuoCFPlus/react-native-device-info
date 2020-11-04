@@ -3,4 +3,5 @@
 @interface DeviceUID : NSObject
 + (NSString *)syncUid;
 + (NSString *)uid;
++ (NSString *)uuidAccount;
 @end
